@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:dev": "tsx ./src/main.ts"
+    "start:download": "tsx ./src/functions/download-files.ts",
+    "start:update": "tsx ./src/functions/update-record.ts"
   },
   "keywords": [],
   "author": "",
@@ -11,11 +12,15 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "@types/pg": "^8.11.10",
+    "@types/pg-copy-streams": "^1.2.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "basic-ftp": "^5.0.5",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.1",
+    "pg-copy-streams": "^6.0.6"
   }
 }

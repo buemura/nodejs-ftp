@@ -1,0 +1,5 @@
+1|johndoe|john@example.com|hashedpassword1|2024-11-27 14:30:00|2024-11-28 09:00:00
+2|janedoe|jane@example.com|hashedpassword2|2024-11-26 10:00:00|2024-11-28 08:45:00
+3|admin|admin@example.com|hashedpassword3|2024-11-25 09:00:00|2024-11-28 07:30:00
+4|guestuser|guest@example.com|hashedpassword4|2024-11-28 12:00:00|2024-11-28 13:00:00
+5|seller|seller@example.com|hashedpassword5|2024-11-28 09:00:00|2024-11-28 14:00:00

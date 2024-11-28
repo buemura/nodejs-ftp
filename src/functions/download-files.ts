@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { FtpProvider } from "./ftp";
+import { FtpProvider } from "../providers/ftp";
 
 async function init() {
   const tempPath = "./temp";
