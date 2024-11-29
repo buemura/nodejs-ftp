@@ -49,6 +49,10 @@ async function init() {
         });
 
         console.log(`Import completed for table: ${tableName}`);
+
+        console.log(`Deleting temp file: ${filePath}`);
+        fs.unlinkSync(filePath);
+        console.log(`Deleted temp file: ${filePath}`);
       } catch (err) {
         console.error(`Failed to import data for table: ${tableName}`, err);
       } finally {
