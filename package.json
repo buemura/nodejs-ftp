@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:download": "tsx ./src/functions/download-files.ts",
-    "start:update": "tsx ./src/functions/update-record.ts"
+    "start": "tsx ./src/functions/update-drug-db.function.ts"
   },
   "keywords": [],
   "author": "",
