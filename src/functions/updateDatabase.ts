@@ -1,38 +1,38 @@
 import { app, InvocationContext, Timer } from "@azure/functions";
-import { LoggerImpl } from "../infra/logger";
-import { BasicFtpProvider } from "../infra/ftp";
-import { FileHandlerImpl } from "../infra/file-handler";
+
+import { DataService } from "../app/services/data-service";
+import { FileHandlerService } from "../app/services/file-handler-service";
 import { PgDrugDbRepository } from "../infra/database";
-import { DownloadFileService } from "../app/services/download-files.service";
-import { UpdateDrugDbRecords } from "../app/services/update-record.service";
-import { env } from "../configs/env";
+import { FileHandlerImpl } from "../infra/file-handler";
+import { BasicFtpProvider } from "../infra/ftp";
+import { LoggerImpl } from "../infra/logger";
 
 export async function updateDatabase(
   myTimer: Timer,
   context: InvocationContext
 ): Promise<void> {
-  context.log("@@@@ starting updateDatabaseFunction");
+  try {
+    context.log("==> starting updateDatabaseFunction <===");
 
-  context.log({
-    FTP_SERVER_HOST: env.FTP_SERVER_HOST,
-    FTP_SERVER_USER: env.FTP_SERVER_USER,
-    FTP_SERVER_PASS: env.FTP_SERVER_PASS,
-  });
+    const logger = new LoggerImpl();
+    const ftpProvider = new BasicFtpProvider();
+    const fileHandler = new FileHandlerImpl();
+    const drugDbRepository = new PgDrugDbRepository();
 
-  const logger = new LoggerImpl();
-  const ftpProvider = new BasicFtpProvider();
-  const fileHandler = new FileHandlerImpl();
-  const drugDbRepository = new PgDrugDbRepository();
+    const fileHandlerService = new FileHandlerService(
+      logger,
+      ftpProvider,
+      fileHandler
+    );
+    const dataService = new DataService(logger, fileHandler, drugDbRepository);
 
-  const downloadFileService = new DownloadFileService(logger, ftpProvider);
-  const updateDrugDbRecords = new UpdateDrugDbRecords(
-    logger,
-    fileHandler,
-    drugDbRepository
-  );
-
-  await downloadFileService.execute();
-  // await updateDrugDbRecords.execute();
+    await fileHandlerService.downloadRemoteFiles();
+    await fileHandlerService.unzipDirectories();
+    // await dataService.updateRecords();
+    // fileHandlerService.cleanUpTempDir();
+  } catch (error) {
+    context.error(error.message);
+  }
 }
 
 app.timer("updateDatabase", {

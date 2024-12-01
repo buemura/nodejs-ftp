@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as stream from "stream";
+import fs from "fs";
+import stream from "stream";
 import { Pool, PoolClient } from "pg";
 import { from as copyFrom } from "pg-copy-streams";
 
@@ -36,17 +36,28 @@ export class PgDrugDbRepository implements DrugDbRepository {
     this.client = await this.conn.connect();
     const copyStream = this.buildCopyQuery(tableName);
 
-    try {
-      fileStream.pipe(copyStream);
+    fileStream.pipe(copyStream);
 
-      await new Promise<void>((resolve, reject) => {
-        copyStream.on("finish", resolve);
-        copyStream.on("error", reject);
-        fileStream.on("error", reject);
-      });
-    } finally {
-      this.client.release();
-    }
+    await new Promise<void>((resolve, reject) => {
+      copyStream.on("finish", resolve);
+      copyStream.on("error", reject);
+      fileStream.on("error", reject);
+    });
+
+    this.client.release();
+  }
+
+  /**
+   * Executes a query from a .sql file.
+   * @param filePath Path to the .sql file
+   */
+  async executeQueryFromFile(filePath: string): Promise<void> {
+    this.client = await this.conn.connect();
+
+    const query = fs.readFileSync(filePath, "utf-8");
+    await this.client.query(query);
+
+    this.client.release();
   }
 
   async closeConnection(): Promise<void> {

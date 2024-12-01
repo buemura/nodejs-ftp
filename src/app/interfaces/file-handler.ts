@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import fs from "fs";
 
 export interface FileHandler {
   getFiles(dirPath: string, ignoreFiles: string[]): fs.Dirent[];
@@ -6,4 +6,9 @@ export interface FileHandler {
   getTableName(file: fs.Dirent): string;
   getFileStream(filePath: string): fs.ReadStream;
   deleteFile(filePath: string): void;
+  deleteDir(dirPath: string): void;
+  unzipDirectory(
+    inputFilePath: string | Buffer,
+    outputDirectory: string
+  ): Promise<void>;
 }
