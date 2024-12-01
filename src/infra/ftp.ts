@@ -1,4 +1,6 @@
 import { Client } from "basic-ftp";
+
+import { env } from "../configs/env";
 import { FtpProvider } from "../interfaces/ftp-provider";
 
 export class BasicFtpProvider implements FtpProvider {
@@ -11,9 +13,9 @@ export class BasicFtpProvider implements FtpProvider {
   async connect(): Promise<void> {
     try {
       await this.client.access({
-        host: process.env.FTP_SERVER_HOST,
-        user: process.env.FTP_SERVER_USER,
-        password: process.env.FTP_SERVER_PASS,
+        host: env.FTP_SERVER_HOST,
+        user: env.FTP_SERVER_USER,
+        password: env.FTP_SERVER_PASS,
         secure: false,
       });
     } catch (error) {

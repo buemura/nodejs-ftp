@@ -1,4 +1,10 @@
 services:
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - 10000:10000
+      - 10001:10001
+
   db:
     image: postgres:latest
     hostname: db
@@ -17,6 +23,6 @@ services:
       - "21:21"
       - "21000-21010:21000-21010"
     environment:
-      - USERS=one|1234|/home/ftp_server|10000
+      - USERS=admin|admin|/home/ftp_server|10000
     volumes:
       - ./ftp_server:/home/ftp_server

@@ -1,5 +1,5 @@
-import fs from "fs";
-import stream from "stream";
+import * as fs from "fs";
+import * as stream from "stream";
 
 export interface DrugDbRepository {
   buildCopyQuery(tableName: string): stream.Writable;

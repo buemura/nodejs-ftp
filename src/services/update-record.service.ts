@@ -1,4 +1,4 @@
-import fs from "fs";
+import * as fs from "fs";
 
 import { PATHS } from "../configs/constants";
 import { DrugDbRepository } from "../interfaces/drug-db-repository";
@@ -6,7 +6,11 @@ import { FileHandler } from "../interfaces/file-handler";
 import { Logger } from "../interfaces/logger";
 
 export class UpdateDrugDbRecords {
-  private readonly ignoreFiles = [".gitkeep"];
+  private readonly ignoreFiles = [
+    ".gitkeep",
+    "Copyright.txt",
+    "UPDATE_INFO.UPD",
+  ];
 
   constructor(
     private logger: Logger,
@@ -17,11 +21,13 @@ export class UpdateDrugDbRecords {
   async execute(): Promise<void> {
     try {
       this.logger.info(
-        `[UpdateDrugDbRecords.execute] - Listing files from dir: ${PATHS.tempPath}`
+        `[UpdateDrugDbRecords.execute] - Listing files from dir: ${PATHS.LOCAL}`
       );
 
-      const files = this.fileHandler.getFiles(PATHS.tempPath, this.ignoreFiles);
-      await this.processFiles(files);
+      const files = this.fileHandler.getFiles(PATHS.LOCAL, this.ignoreFiles);
+      console.log(files);
+
+      // await this.processFiles(files);
     } catch (err) {
       this.logger.error(
         "[UpdateDrugDbRecords.execute] - Error during execution:",

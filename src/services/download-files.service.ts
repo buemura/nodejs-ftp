@@ -13,10 +13,10 @@ export class DownloadFileService {
       await this.ftpProvider.connect();
 
       this.logger.info(
-        `[DownloadFileService.execute] - Downloading files from ${PATHS.basePath} to ${PATHS.tempPath}`
+        `[DownloadFileService.execute] - Downloading files from ${PATHS.REMOTE_CURRENT} to ${PATHS.LOCAL}`
       );
 
-      await this.ftpProvider.downloadFiles(PATHS.tempPath, PATHS.basePath);
+      await this.ftpProvider.downloadFiles(PATHS.LOCAL, PATHS.REMOTE_CURRENT);
 
       this.logger.info(
         "[DownloadFileService.execute] - Files downloaded successfully"

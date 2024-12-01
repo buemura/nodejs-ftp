@@ -1,8 +1,9 @@
-import fs from "fs";
-import stream from "stream";
+import * as fs from "fs";
+import * as stream from "stream";
 import { Pool, PoolClient } from "pg";
 import { from as copyFrom } from "pg-copy-streams";
 
+import { env } from "../configs/env";
 import { DrugDbRepository } from "../interfaces/drug-db-repository";
 
 export class PgDrugDbRepository implements DrugDbRepository {
@@ -11,11 +12,11 @@ export class PgDrugDbRepository implements DrugDbRepository {
 
   constructor() {
     this.conn = new Pool({
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASS,
-      database: process.env.DATABASE_NAME,
+      host: env.DATABASE_HOST,
+      port: Number(env.DATABASE_PORT),
+      user: env.DATABASE_USER,
+      password: env.DATABASE_PASS,
+      database: env.DATABASE_NAME,
     });
   }
 

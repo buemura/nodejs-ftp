@@ -1,7 +1,6 @@
-import fs from "fs";
-import path from "path";
+import * as fs from "fs";
+import * as path from "path";
 
-import { PATHS } from "../configs/constants";
 import { FileHandler } from "../interfaces/file-handler";
 
 export class FileHandlerImpl implements FileHandler {
