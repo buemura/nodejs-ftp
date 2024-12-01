@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { PATHS } from "../configs/constants";
+import { PATHS } from "../../configs/constants";
 import { DrugDbRepository } from "../interfaces/drug-db-repository";
 import { FileHandler } from "../interfaces/file-handler";
 import { Logger } from "../interfaces/logger";

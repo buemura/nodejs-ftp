@@ -1,7 +1,7 @@
 import { Client } from "basic-ftp";
 
 import { env } from "../configs/env";
-import { FtpProvider } from "../interfaces/ftp-provider";
+import { FtpProvider } from "../app/interfaces/ftp-provider";
 
 export class BasicFtpProvider implements FtpProvider {
   private client: Client;

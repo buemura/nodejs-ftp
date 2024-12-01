@@ -4,7 +4,7 @@ import { Pool, PoolClient } from "pg";
 import { from as copyFrom } from "pg-copy-streams";
 
 import { env } from "../configs/env";
-import { DrugDbRepository } from "../interfaces/drug-db-repository";
+import { DrugDbRepository } from "../app/interfaces/drug-db-repository";
 
 export class PgDrugDbRepository implements DrugDbRepository {
   private conn: Pool;

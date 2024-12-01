@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { FileHandler } from "../interfaces/file-handler";
+import { FileHandler } from "../app/interfaces/file-handler";
 
 export class FileHandlerImpl implements FileHandler {
   getFiles(dirPath: string, ignoreFiles: string[]): fs.Dirent[] {

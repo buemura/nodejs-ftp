@@ -3,8 +3,8 @@ import { LoggerImpl } from "../infra/logger";
 import { BasicFtpProvider } from "../infra/ftp";
 import { FileHandlerImpl } from "../infra/file-handler";
 import { PgDrugDbRepository } from "../infra/database";
-import { DownloadFileService } from "../services/download-files.service";
-import { UpdateDrugDbRecords } from "../services/update-record.service";
+import { DownloadFileService } from "../app/services/download-files.service";
+import { UpdateDrugDbRecords } from "../app/services/update-record.service";
 import { env } from "../configs/env";
 
 export async function updateDatabase(

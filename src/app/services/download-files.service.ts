@@ -1,4 +1,4 @@
-import { PATHS } from "../configs/constants";
+import { PATHS } from "../../configs/constants";
 import { FtpProvider } from "../interfaces/ftp-provider";
 import { Logger } from "../interfaces/logger";
 
