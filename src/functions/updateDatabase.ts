@@ -29,7 +29,8 @@ export async function updateDatabase(
     await fileHandlerService.downloadRemoteFiles();
     await fileHandlerService.unzipDirectories();
     await dataService.truncateTables();
-    // await dataService.updateRecords();
+    await dataService.updateRecords();
+
     fileHandlerService.cleanUpTempDir();
   } catch (error) {
     context.error(error.message);

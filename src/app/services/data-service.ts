@@ -10,6 +10,7 @@ export class DataService {
     ".gitkeep",
     "Copyright.txt",
     "UPDATE_INFO.UPD",
+    "UPD Data.zip",
   ];
 
   constructor(
@@ -18,22 +19,23 @@ export class DataService {
     private drugDbRepository: DrugDbRepository
   ) {}
 
+  async truncateTables(): Promise<void> {
+    this.logger.info(`[DataService.truncateTables] - Truncating tables`);
+    await this.drugDbRepository.executeQueryFromFile(PATHS.QUERY.TRUNCATE);
+    this.logger.info(`[DataService.truncateTables] - Tables truncated`);
+  }
+
   async updateRecords(): Promise<void> {
     this.logger.info(
       `[DataService.updateRecords] - Listing files from dir: ${PATHS.LOCAL}`
     );
 
-    const files = this.fileHandler.getFiles(PATHS.LOCAL, this.ignoreFiles);
+    const files = this.fileHandler.getFiles(
+      `${PATHS.LOCAL}/UPD Data`,
+      this.ignoreFiles
+    );
+
     await this.processFiles(files);
-
-    await this.drugDbRepository.closeConnection();
-    this.logger.info("[DataService.updateRecords] - DB connection ended");
-  }
-
-  async truncateTables(): Promise<void> {
-    this.logger.info(`[DataService.truncateTables] - Truncating tables`);
-    await this.drugDbRepository.executeQueryFromFile(PATHS.QUERY.TRUNCATE);
-    this.logger.info(`[DataService.truncateTables] - Tables truncated`);
   }
 
   private async processFiles(files: fs.Dirent[]): Promise<void> {
@@ -54,5 +56,8 @@ export class DataService {
         `[DataService.processFiles] - Import completed for table: ${tableName}`
       );
     }
+
+    await this.drugDbRepository.closeConnection();
+    this.logger.info("[DataService.updateRecords] - DB connection ended");
   }
 }
